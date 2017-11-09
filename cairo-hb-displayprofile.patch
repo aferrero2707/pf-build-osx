@@ -1,0 +1,207 @@
+*** homebrew/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb	Mon Nov  6 14:51:52 2017
+--- homebrew-new//Library/Taps/homebrew/homebrew-core/Formula/cairo.rb	Thu Nov  9 17:01:44 2017
+***************
+*** 29,34 ****
+--- 29,36 ----
+    depends_on "pixman"
+    depends_on "glib"
+  
++   patch :DATA
++ 
+    def install
+      args = %W[
+        --disable-dependency-tracking
+***************
+*** 87,89 ****
+--- 89,279 ----
+      system "./test"
+    end
+  end
++ 
++ __END__
++ diff -rcN cairo-1.14.0/src/cairo-quartz-surface.c cairo-1.14.0.new/src/cairo-quartz-surface.c
++ *** cairo-1.14.0/src/cairo-quartz-surface.c	Tue Oct 14 03:46:33 2014
++ --- cairo-1.14.0.new/src/cairo-quartz-surface.c	Fri Nov 25 08:23:03 2016
++ ***************
++ *** 134,139 ****
++ --- 134,189 ----
++   static void quartz_image_to_png (CGImageRef, char *dest);
++   #endif
++   
++ + 
++ + static CGColorSpaceRef CGColorSpaceCreateDeviceRGB_test()
++ + {
++ +   //return CGColorSpaceCreateDeviceRGB();
++ +   return CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
++ +   //return CGColorSpaceCreateWithName(kCGColorSpaceAdobeRGB1998);
++ +   //return CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
++ +   //return CGColorSpaceCreateWithName(kCGColorSpaceACESCGLinear);
++ +   //return NULL;
++ + 
++ +   CGColorSpaceRef result = NULL;
++ + 
++ +   //guint8 *buffer = NULL;
++ +   //gint buffer_size = 0;
++ + 
++ +   int monitor = 0;
++ +   CGDirectDisplayID ids[monitor + 1];
++ +   uint32_t total_ids;
++ +   CMProfileRef prof = NULL;
++ +   if(CGGetOnlineDisplayList(monitor + 1, &ids[0], &total_ids) == kCGErrorSuccess && total_ids == monitor + 1) {
++ +     CMGetProfileByAVID(ids[monitor], &prof);
++ +     printf("CGColorSpaceCreateDeviceRGB_test(): AVID=%d\n", (int)ids[monitor]);
++ +   }
++ +   if(prof != NULL)
++ +   {
++ +     CFDataRef data;
++ +     data = CMProfileCopyICCData(NULL, prof);
++ +     CMCloseProfile(prof);
++ +     /*
++ +     UInt8 *tmp_buffer = (UInt8 *)g_malloc(CFDataGetLength(data));
++ +     CFDataGetBytes(data, CFRangeMake(0, CFDataGetLength(data)), tmp_buffer);
++ + 
++ +     buffer = (guint8 *)tmp_buffer;
++ +     buffer_size = CFDataGetLength(data);
++ + 
++ +     cmsHPROFILE icc_profile = cmsOpenProfileFromMem( buffer, buffer_size );
++ +     char tstr[1024];
++ +     cmsGetProfileInfoASCII(icc_profile, cmsInfoDescription, "en", "US", tstr, 1024);
++ +     std::cout<<"CGColorSpaceCreateDeviceRGB_test(): Display profile: "<<tstr<<std::endl;
++ +     cmsCloseProfile(icc_profile);
++ +     */
++ + 
++ +     result = CGColorSpaceCreateWithICCProfile(data);
++ + 
++ +     printf("CGColorSpaceCreateDeviceRGB_test(): display profile=%p, result=%p\n", (void*)prof, (void*)result);
++ +     CFRelease(data);
++ +   }
++ + return result;
++ + }
++ + 
++   static cairo_quartz_surface_t *
++   _cairo_quartz_surface_create_internal (CGContextRef cgContext,
++   				       cairo_content_t content,
++ ***************
++ *** 175,181 ****
++       switch (format) {
++   	case CAIRO_FORMAT_ARGB32:
++   	    if (colorSpace == NULL)
++ ! 		colorSpace = CGColorSpaceCreateDeviceRGB ();
++   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
++   	    bitsPerComponent = 8;
++   	    bitsPerPixel = 32;
++ --- 225,231 ----
++       switch (format) {
++   	case CAIRO_FORMAT_ARGB32:
++   	    if (colorSpace == NULL)
++ ! 		colorSpace = CGColorSpaceCreateDeviceRGB_test ();
++   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
++   	    bitsPerComponent = 8;
++   	    bitsPerPixel = 32;
++ ***************
++ *** 183,189 ****
++   
++   	case CAIRO_FORMAT_RGB24:
++   	    if (colorSpace == NULL)
++ ! 		colorSpace = CGColorSpaceCreateDeviceRGB ();
++   	    bitinfo |= kCGImageAlphaNoneSkipFirst;
++   	    bitsPerComponent = 8;
++   	    bitsPerPixel = 32;
++ --- 233,239 ----
++   
++   	case CAIRO_FORMAT_RGB24:
++   	    if (colorSpace == NULL)
++ ! 		colorSpace = CGColorSpaceCreateDeviceRGB_test ();
++   	    bitinfo |= kCGImageAlphaNoneSkipFirst;
++   	    bitsPerComponent = 8;
++   	    bitsPerPixel = 32;
++ ***************
++ *** 229,235 ****
++   				   dataProvider,
++   				   decode,
++   				   interpolate);
++ !     } else
++   	image = CGImageCreate (width, height,
++   			       bitsPerComponent,
++   			       bitsPerPixel,
++ --- 279,285 ----
++   				   dataProvider,
++   				   decode,
++   				   interpolate);
++ !     } else {
++   	image = CGImageCreate (width, height,
++   			       bitsPerComponent,
++   			       bitsPerPixel,
++ ***************
++ *** 240,245 ****
++ --- 290,297 ----
++   			       NULL,
++   			       interpolate,
++   			       kCGRenderingIntentDefault);
++ + 	/*printf("CGImageCreate() called, colorSpace=%p\n", (void*)colorSpace);*/
++ +     }
++   
++   FINISH:
++   
++ ***************
++ *** 1092,1098 ****
++       if (unlikely (gradFunc == NULL))
++   	return CAIRO_INT_STATUS_UNSUPPORTED;
++   
++ !     rgb = CGColorSpaceCreateDeviceRGB ();
++   
++       if (gradient->base.type == CAIRO_PATTERN_TYPE_LINEAR) {
++   	state->shading = CGShadingCreateAxial (rgb,
++ --- 1144,1150 ----
++       if (unlikely (gradFunc == NULL))
++   	return CAIRO_INT_STATUS_UNSUPPORTED;
++   
++ !     rgb = CGColorSpaceCreateDeviceRGB_test ();
++   
++       if (gradient->base.type == CAIRO_PATTERN_TYPE_LINEAR) {
++   	state->shading = CGShadingCreateAxial (rgb,
++ ***************
++ *** 2361,2367 ****
++       if (format == CAIRO_FORMAT_ARGB32 ||
++   	format == CAIRO_FORMAT_RGB24)
++       {
++ ! 	cgColorspace = CGColorSpaceCreateDeviceRGB ();
++   	bitinfo = kCGBitmapByteOrder32Host;
++   	if (format == CAIRO_FORMAT_ARGB32)
++   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
++ --- 2413,2419 ----
++       if (format == CAIRO_FORMAT_ARGB32 ||
++   	format == CAIRO_FORMAT_RGB24)
++       {
++ ! 	cgColorspace = CGColorSpaceCreateDeviceRGB_test ();
++   	bitinfo = kCGBitmapByteOrder32Host;
++   	if (format == CAIRO_FORMAT_ARGB32)
++   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
++ diff -rcN cairo-1.14.0/src/cairo.c cairo-1.14.0.new/src/cairo.c
++ *** cairo-1.14.0/src/cairo.c	Tue Feb  4 00:07:57 2014
++ --- cairo-1.14.0.new/src/cairo.c	Wed Oct 19 12:50:08 2016
++ ***************
++ *** 107,112 ****
++ --- 107,115 ----
++    * space</firstterm>.
++    **/
++   
++ + int cairo_current_display_id = 0;
++ + 
++ + 
++   #define DEFINE_NIL_CONTEXT(status)					\
++       {									\
++   	CAIRO_REFERENCE_COUNT_INVALID,	/* ref_count */			\
++ diff -rcN cairo-1.14.0/src/cairo.h cairo-1.14.0.new/src/cairo.h
++ *** cairo-1.14.0/src/cairo.h	Fri Mar 14 01:12:43 2014
++ --- cairo-1.14.0.new/src/cairo.h	Wed Oct 19 12:49:53 2016
++ ***************
++ *** 3147,3152 ****
++ --- 3147,3153 ----
++   cairo_public void
++   cairo_debug_reset_static_data (void);
++   
++ + extern int cairo_current_display_id;
++   
++   CAIRO_END_DECLS
++   
