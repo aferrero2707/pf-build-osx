@@ -137,9 +137,14 @@ done
 
 mkdir -p $dst/Contents/MacOS
 cp -a photoflow-launcher-hb.sh $dst/Contents/MacOS/photoflow
+cp Info.plist $dst/Contents
+cp MyIcon.icns $dst_prefix
 
 cd $bdir
 zip -r $HOME/photoflow-${version}.zip photoflow.app
+
+ls -lh transfer $HOME/photoflow-${version}.zip
+echo "transfer $HOME/photoflow-${version}.zip"
 transfer $HOME/photoflow-${version}.zip
 
 exit
