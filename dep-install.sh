@@ -5,6 +5,7 @@ brew update
 #if [ "x" = "y" ]; then
 brew install ccache pkg-config automake
 brew install --ignore-dependencies gtk-doc
+brew reinstall   shared-mime-info
 brew reinstall   gobject-introspection
 #brew reinstall   gobject-introspection
 brew reinstall   fftw

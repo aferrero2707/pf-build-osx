@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>MyIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>uk.ac.soton.ecs.vips</string>
+	<string>photoflow.org</string>
 	<key>CFBundleLongVersionString</key>
 	<string>@LONG_VERSION@, @COPYRIGHT@</string>
 	<key>CFBundleName</key>
