@@ -6,77 +6,78 @@ export PATH=$HOME/homebrew/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH
 
+cd $HOME/homebrew
 brew update
 brew tap homebrew/science
 
 brew install ccache pkg-config automake
 brew install --ignore-dependencies gtk-doc
-brew reinstall   shared-mime-info
+brew install   shared-mime-info
 
-brew reinstall cairo
+brew install cairo
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
-patch -p1 < $TRAVIS_BUILD_DIR/osx/cairo-hb-displayprofile.patch
+patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 brew reinstall --build-from-source cairo
 
 #if [ "x" = "y" ]; then
-brew reinstall   gobject-introspection
-#brew reinstall   gobject-introspection
-brew reinstall   fftw
+brew install   gobject-introspection
+#brew install   gobject-introspection
+brew install   fftw
 brew info   fftw
-brew reinstall  mozjpeg
+brew install  mozjpeg
 brew info  mozjpeg
-brew reinstall  libexif
+brew install  libexif
 brew info  libexif
-brew reinstall   libpng
+brew install   libpng
 brew info   libpng
-#brew reinstall  webp
+#brew install  webp
 #brew info  webp
-brew reinstall  libtiff
+brew install  libtiff
 brew info  libtiff
-brew reinstall   swig
+brew install   swig
 brew info   swig
-#brew reinstall  imagemagick
+#brew install  imagemagick
 #brew info  imagemagick
-brew reinstall   cfitsio
+brew install   cfitsio
 brew info   cfitsio
-#brew reinstall  libmatio
+#brew install  libmatio
 #brew info  libmatio
-brew reinstall   orc
+brew install   orc
 brew info   orc
-brew reinstall  little-cms2
+brew install  little-cms2
 brew info  little-cms2
 #fi
-brew reinstall  poppler
+brew install  poppler
 brew info  poppler
-brew reinstall   pango
+brew install   pango
 brew info   pango
-brew reinstall  libgsf
+brew install  libgsf
 brew info  libgsf
-brew reinstall  openslide
+brew install  openslide
 brew info  openslide
-brew reinstall   librsvg
+brew install   librsvg
 brew info   librsvg
-brew reinstall  giflib
+brew install  giflib
 brew info  giflib
-brew reinstall  openexr
+brew install  openexr
 brew info  openexr
-#brew reinstall   python
+#brew install   python
 #brew info   python
-#brew reinstall  pygobject3
+#brew install  pygobject3
 #brew info  pygobject3
-#brew reinstall   gexiv2
+#brew install   gexiv2
 #brew info   gexiv2
-brew reinstall  gtk+
+brew install  gtk+
 brew info  gtk+
-#brew reinstall  pygtk
+#brew install  pygtk
 #brew info  pygtk
-brew reinstall  gtkmm 
+brew install  gtkmm 
 brew info  gtkmm 
-brew reinstall  gtk-mac-integration
+brew install  gtk-mac-integration
 brew info  gtk-mac-integration
-brew reinstall  pugixml
+brew install  pugixml
 brew info  pugixml
-brew reinstall  vips
+brew install  vips
 brew info  vips
