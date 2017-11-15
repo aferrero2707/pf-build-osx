@@ -86,7 +86,7 @@ brew install  gtk-engines
 brew info  gtk-engines 
 brew install  gtkmm 
 brew info  gtkmm 
-brew install  gtk-mac-integration
+brew install  gtk-mac-integration --without-gtk3
 brew info  gtk-mac-integration
 brew install  pugixml
 brew info  pugixml
