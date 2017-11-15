@@ -1,13 +1,19 @@
 #!/bin/bash
 
+cd $HOME
+mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+export PATH=$HOME/homebrew/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=$HOME/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH
+
+brew update
 brew tap homebrew/science
-#brew update
 
 brew install ccache pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew reinstall   shared-mime-info
 
-#brew reinstall cairo
+brew reinstall cairo
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
 patch -p1 < $TRAVIS_BUILD_DIR/osx/cairo-hb-displayprofile.patch
