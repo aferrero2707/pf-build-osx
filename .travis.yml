@@ -6,7 +6,7 @@ env:
           - TARGET_SYSTEM=OSX
             PYTHON=/usr/local/bin/python
             JPEG=/usr/local/opt/mozjpeg
-            STEP=2
+            STEP=3
 before_script:
   - ./dep-install.sh $STEP
   - cd $HOME
