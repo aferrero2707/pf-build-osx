@@ -90,6 +90,10 @@ brew install  gtk-mac-integration
 brew info  gtk-mac-integration
 brew install  pugixml
 brew info  pugixml
+fi
+
+if [ x"$step" = "x4" ]; then
+curl -L https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/homebrew-cache-pf-step3.tar.gz | tar xz -C /
 brew install  vips
 brew info  vips
 fi
