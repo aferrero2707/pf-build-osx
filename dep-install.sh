@@ -1,11 +1,14 @@
 #!/bin/bash
 
+step=$1
+
 cd $HOME
-mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 export PATH=$HOME/homebrew/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH
 
+if [ x"$step" = "x1" ]; then
+rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 cd $HOME/homebrew
 brew update
 brew tap homebrew/science
@@ -14,7 +17,6 @@ brew install ccache pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install   shared-mime-info
 
-#if [ "x" = "y" ]; then
 brew install cairo
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
@@ -48,10 +50,10 @@ brew install   orc
 brew info   orc
 brew install  little-cms2
 brew info  little-cms2
-#fi
+fi
 
-exit
-
+if [ x"$step" = "x2" ]; then
+curl -L https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/homebrew-cache-pf-step1.tar.gz | tar xz -C /
 brew install  poppler
 brew info  poppler
 brew install   pango
@@ -84,3 +86,4 @@ brew install  pugixml
 brew info  pugixml
 brew install  vips
 brew info  vips
+fi

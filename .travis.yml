@@ -6,11 +6,12 @@ env:
           - TARGET_SYSTEM=OSX
             PYTHON=/usr/local/bin/python
             JPEG=/usr/local/opt/mozjpeg
+            STEP=2
 before_script:
-  - ./dep-install.sh
-  - tar czvf $HOME/homebrew-cache-pf-step1.tar.gz $HOME/homebrew
+  - ./dep-install.sh $STEP
+  - tar czvf $HOME/homebrew-cache-pf-step${STEP}.tar.gz $HOME/homebrew
   - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
-  - bash  ./upload_rotate.sh "continuous" $HOME/homebrew-cache-pf-step1.tar.gz
+  - bash  ./upload_rotate.sh "continuous" $HOME/homebrew-cache-pf-step${STEP}.tar.gz
 
 
 branches:
