@@ -78,6 +78,12 @@ brew install  gtk+
 brew info  gtk+
 #brew install  pygtk
 #brew info  pygtk
+fi
+
+if [ x"$step" = "x3" ]; then
+curl -L https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/homebrew-cache-pf-step2.tar.gz | tar xz -C /
+brew install  gtk-engines
+brew info  gtk-engines 
 brew install  gtkmm 
 brew info  gtkmm 
 brew install  gtk-mac-integration
