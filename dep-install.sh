@@ -85,8 +85,10 @@ curl -L https://github.com/aferrero2707/pf-build-osx/releases/download/continuou
 brew install  gtk-engines
 brew info  gtk-engines 
 brew install  gtkmm 
-brew info  gtkmm 
-brew install  gtk-mac-integration --without-gtk3
+brew info  gtkmm
+brew install --verbose gtk+3
+brew info gtk+3
+brew install  gtk-mac-integration
 brew info  gtk-mac-integration
 brew install  pugixml
 brew info  pugixml
