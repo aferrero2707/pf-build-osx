@@ -2,10 +2,18 @@
 
 step=$1
 
-cd $HOME
 export PATH=$HOME/homebrew/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH
+
+cachefile=homebrew-cache-pf-step$((step-1)).tar.gz
+cacheurl=https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/$cachefile
+
+cd $HOME
+if [ x"$step" != "x1" ]; then
+  (curl -L $cacheurl > $cachefile && tar xzf cachefile && rm -f $cachefile) || exit 1
+fi
+
 
 if [ x"$step" = "x1" ]; then
 rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
@@ -53,7 +61,6 @@ brew info  little-cms2
 fi
 
 if [ x"$step" = "x2" ]; then
-curl -L https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/homebrew-cache-pf-step1.tar.gz | tar xz -C /
 brew install  poppler
 brew info  poppler
 brew install   pango
@@ -81,7 +88,6 @@ brew info  gtk+
 fi
 
 if [ x"$step" = "x3" ]; then
-curl -L https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/homebrew-cache-pf-step2.tar.gz | tar xz -C /
 brew install  gtk-engines
 brew info  gtk-engines 
 brew install  gtkmm 
@@ -97,7 +103,6 @@ brew info  pugixml
 fi
 
 if [ x"$step" = "x4" ]; then
-curl -L https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/homebrew-cache-pf-step3.tar.gz | tar xz -C /
 brew install  vips
 brew info  vips
 fi
