@@ -21,16 +21,16 @@ cd $HOME/homebrew
 brew update
 brew tap homebrew/science
 
-brew install ccache pkg-config automake
+brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
-brew install   shared-mime-info
+brew install shared-mime-info
 
-brew install cairo
+brew install $(brew deps cairo)
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
-brew reinstall --build-from-source cairo
+brew reinstall --build-from-source --ignore-dependencies cairo
 
 brew install   gobject-introspection
 #brew install   gobject-introspection
