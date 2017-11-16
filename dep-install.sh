@@ -86,6 +86,8 @@ brew install  gtk-engines
 brew info  gtk-engines 
 brew install  gtkmm 
 brew info  gtkmm
+brew install  openssl 
+brew info  openssl
 brew install --verbose gtk+3
 brew info gtk+3
 brew install  gtk-mac-integration
