@@ -7,7 +7,7 @@ env:
             PYTHON=/usr/local/bin/python
             JPEG=/usr/local/opt/mozjpeg
             MACOSX_DEPLOYMENT_TARGET=10.8
-            STEP=2
+            STEP=1
 before_script:
   - ./dep-install.sh $STEP
   - cd $HOME
