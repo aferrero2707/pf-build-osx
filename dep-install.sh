@@ -11,7 +11,7 @@ cacheurl=https://github.com/aferrero2707/pf-build-osx/releases/download/continuo
 
 cd $HOME
 if [ x"$step" != "x1" ]; then
-  (curl -L $cacheurl > $cachefile && tar xzf cachefile && rm -f $cachefile) || exit 1
+  (curl -L $cacheurl > $cachefile && tar xzf $cachefile && rm -f $cachefile) || exit 1
 fi
 
 
