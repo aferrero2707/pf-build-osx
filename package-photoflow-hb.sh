@@ -37,8 +37,8 @@ dst=$bdir/photoflow.app
 dst_prefix=$dst/Contents/Resources
 
 # jhbuild installs to here
-#src=~/homebrew
-src=/usr/local
+src=$HOME/homebrew
+#src=/usr/local
 
 wd=$(pwd)
 
