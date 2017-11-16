@@ -10,7 +10,7 @@ env:
 before_script:
   - ./dep-install.sh $STEP
   - cd $HOME
-  - tar czvf $HOME/homebrew-cache-pf-step${STEP}.tar.gz homebrew
+  - tar czf $HOME/homebrew-cache-pf-step${STEP}.tar.gz homebrew
   - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
   - bash  ./upload_rotate.sh "continuous" $HOME/homebrew-cache-pf-step${STEP}.tar.gz
 
