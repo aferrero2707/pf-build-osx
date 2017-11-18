@@ -131,6 +131,17 @@ for l in "$gdk_pixbuf_dst_moduledir"/*.so; do
   $bdir/tools/macdylibbundler/dylibbundler -of -b -x "$l" -d $dst_prefix/lib -p @loader_path/../lib > /dev/null
 done
 
+gtk_version=$($src/bin/pkg-config --variable=gtk_binary_version gtk+-2.0)
+gtk_engines_src_pixmap="$src/lib/gtk-2.0/${gtk_version}/engines/libpixmap.so"
+gtk_engines_dst_dir="$dst_prefix/lib/gtk-2.0/engines"
+mkdir -p "$gtk_engines_dst_dir"
+cp -L "$gtk_engines_src_pixmap" "$gtk_engines_dst_dir"
+for l in "$gtk_engines_dst_dir"/*.so; do
+  echo "Fixing dependencies of \"$l\""
+  chmod u+w "$l"
+  $bdir/tools/macdylibbundler/dylibbundler -of -b -x "$l" -d $dst_prefix/lib -p @loader_path/../lib > /dev/null
+done
+
 
 #$src/bin/gdk-pixbuf-query-loaders > $dst_prefix/etc/gtk-2.0/gdk-pixbuf.loaders
 #sed -i -e "s|$src/|././/|g'
