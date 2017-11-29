@@ -103,6 +103,6 @@ brew info  pugixml
 fi
 
 if [ x"$step" = "x4" ]; then
-brew install  vips
+brew install  vips@8.5.8
 brew info  vips
 fi
