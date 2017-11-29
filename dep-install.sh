@@ -103,6 +103,7 @@ brew info  pugixml
 fi
 
 if [ x"$step" = "x4" ]; then
+brew reinstall python && brew info python
 brew install python3 && brew info python3
 brew install  vips
 brew info  vips
