@@ -2,7 +2,8 @@
 
 step=$1
 
-export PATH=$HOME/homebrew/bin:$PATH
+#export PATH=$HOME/homebrew/bin:$PATH
+export PATH=$HOME/homebrew/opt/python/libexec/bin:$HOME/homebrew/bin:$PATH
 export LD_LIBRARY_PATH=$HOME/homebrew/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$HOME/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH
 
