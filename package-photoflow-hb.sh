@@ -142,6 +142,12 @@ for l in "$gtk_engines_dst_dir"/*.so; do
   $bdir/tools/macdylibbundler/dylibbundler -of -b -x "$l" -d $dst_prefix/lib -p @loader_path/../lib > /dev/null
 done
 
+export PATH=$src/bin:$PATH
+lensfun-update-data
+mkdir -p $dst_prefix/share/photoflow/lensfun/version_1
+cp -a $HOME/.local/share/lensfun/updates/version_1/* $dst_prefix/share/photoflow/lensfun/version_1
+
+
 
 #$src/bin/gdk-pixbuf-query-loaders > $dst_prefix/etc/gtk-2.0/gdk-pixbuf.loaders
 #sed -i -e "s|$src/|././/|g'

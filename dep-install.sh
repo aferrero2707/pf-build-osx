@@ -109,3 +109,10 @@ brew install python3 && brew info python3
 brew install  vips
 brew info  vips
 fi
+
+if [ x"$step" = "x5" ]; then
+brew reinstall  vips
+brew info  vips
+brew reinstall  lensfun
+brew info  lensfun
+fi
