@@ -26,7 +26,7 @@ brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install shared-mime-info
 
-brew install gcc
+#brew install gcc
 fi
 
 if [ x"$step" = "x1" ]; then
@@ -126,6 +126,11 @@ brew info  vips
 fi
 
 if [ x"$step" = "x5" ]; then
+brew uninstall cairo
+brew install --ignore-dependencies cairo
+patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
+cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
+brew reinstall --build-from-source --ignore-dependencies cairo
 brew reinstall  vips
 brew info  vips
 brew reinstall  lensfun
