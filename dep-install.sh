@@ -16,19 +16,6 @@ if [ x"$step" != "x0" ]; then
 fi
 
 
-if [ x"$step" = "x0" ]; then
-rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-cd $HOME/homebrew
-brew update
-brew tap homebrew/science
-
-brew install pkg-config automake
-brew install --ignore-dependencies gtk-doc
-brew install shared-mime-info
-
-#brew install gcc
-fi
-
 if [ x"$step" = "x1" ]; then
 rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 cd $HOME/homebrew
@@ -38,8 +25,6 @@ brew tap homebrew/science
 brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install shared-mime-info
-
-brew install -v gcc
 
 brew install $(brew deps cairo)
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
@@ -127,6 +112,12 @@ fi
 
 if [ x"$step" = "x5" ]; then
 brew uninstall --ignore-dependencies cairo
+
+cd $HOME
+rm -rf homebrew-temp && mkdir homebrew-temp && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew-temp
+cp homebrew-temp/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb homebrew/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
+cd $HOME/homebrew
+
 brew install --ignore-dependencies cairo
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
