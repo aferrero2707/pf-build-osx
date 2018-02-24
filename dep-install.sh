@@ -26,7 +26,7 @@ brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install shared-mime-info
 
-travis_wait 120 sleep infinity & brew install gcc
+brew install gcc
 fi
 
 if [ x"$step" = "x1" ]; then
