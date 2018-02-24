@@ -16,103 +16,118 @@ if [ x"$step" != "x1" ]; then
 fi
 
 
+if [ x"$step" = "x0" ]; then
+rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+cd $HOME/homebrew
+brew update
+brew tap homebrew/science
+
+brew install pkg-config automake
+brew install --ignore-dependencies gtk-doc
+brew install shared-mime-info
+
+brew install -v gcc
+fi
+
 if [ x"$step" = "x1" ]; then
 rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 cd $HOME/homebrew
 brew update
 brew tap homebrew/science
 
-brew install -v pkg-config automake
-brew install -v --ignore-dependencies gtk-doc
-brew install -v shared-mime-info
+brew install pkg-config automake
+brew install --ignore-dependencies gtk-doc
+brew install shared-mime-info
 
-brew install -v $(brew deps cairo)
+brew install -v gcc
+
+brew install $(brew deps cairo)
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 brew reinstall --build-from-source --ignore-dependencies cairo
 
-brew install -v   gobject-introspection
-#brew install -v   gobject-introspection
-brew install -v   fftw
+brew install   gobject-introspection
+#brew install   gobject-introspection
+brew install   fftw
 brew info   fftw
-brew install -v  mozjpeg
+brew install  mozjpeg
 brew info  mozjpeg
-brew install -v  libexif
+brew install  libexif
 brew info  libexif
-brew install -v   libpng
+brew install   libpng
 brew info   libpng
-#brew install -v  webp
+#brew install  webp
 #brew info  webp
-brew install -v  libtiff
+brew install  libtiff
 brew info  libtiff
-brew install -v   swig
+brew install   swig
 brew info   swig
-#brew install -v  imagemagick
+#brew install  imagemagick
 #brew info  imagemagick
-brew install -v   cfitsio
+brew install   cfitsio
 brew info   cfitsio
-#brew install -v  libmatio
+#brew install  libmatio
 #brew info  libmatio
-brew install -v   orc
+brew install   orc
 brew info   orc
-brew install -v  little-cms2
+brew install  little-cms2
 brew info  little-cms2
 fi
 
 if [ x"$step" = "x2" ]; then
-brew install -v  poppler
+brew install  poppler
 brew info  poppler
-brew install -v   pango
+brew install   pango
 brew info   pango
-brew install -v  libgsf
+brew install  libgsf
 brew info  libgsf
-brew install -v  openslide
+brew install  openslide
 brew info  openslide
-brew install -v   librsvg
+brew install   librsvg
 brew info   librsvg
-brew install -v  giflib
+brew install  giflib
 brew info  giflib
-brew install -v  openexr
+brew install  openexr
 brew info  openexr
-#brew install -v   python
+#brew install   python
 #brew info   python
-#brew install -v  pygobject3
+#brew install  pygobject3
 #brew info  pygobject3
-#brew install -v   gexiv2
+#brew install   gexiv2
 #brew info   gexiv2
-brew install -v  gtk+
+brew install  gtk+
 brew info  gtk+
-#brew install -v  pygtk
+#brew install  pygtk
 #brew info  pygtk
 fi
 
 if [ x"$step" = "x3" ]; then
-brew install -v  gtk-engines
+brew install  gtk-engines
 brew info  gtk-engines 
-brew install -v  gtkmm 
+brew install  gtkmm 
 brew info  gtkmm
-brew install -v  openssl 
+brew install  openssl 
 brew info  openssl
-brew install -v --verbose gtk+3
+brew install --verbose gtk+3
 brew info gtk+3
-brew install -v  gtk-mac-integration
+brew install  gtk-mac-integration
 brew info  gtk-mac-integration
-brew install -v  pugixml
+brew install  pugixml
 brew info  pugixml
 fi
 
 if [ x"$step" = "x4" ]; then
-brew reinstall -v python && brew info python
-brew install -v python3 && brew info python3
-brew install -v  vips
+brew reinstall python && brew info python
+brew install python3 && brew info python3
+brew install  vips
 brew info  vips
 fi
 
 if [ x"$step" = "x5" ]; then
-brew reinstall -v  vips
+brew reinstall  vips
 brew info  vips
-brew reinstall -v  lensfun
+brew reinstall  lensfun
 brew info  lensfun
 fi
