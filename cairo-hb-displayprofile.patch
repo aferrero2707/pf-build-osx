@@ -1,8 +1,8 @@
-*** homebrew/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb	Mon Nov  6 14:51:52 2017
---- homebrew-new//Library/Taps/homebrew/homebrew-core/Formula/cairo.rb	Thu Nov  9 17:01:44 2017
+*** homebrew/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb	Wed Feb 21 21:39:29 2018
+--- homebrew-new/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb	Wed Feb 21 21:38:38 2018
 ***************
-*** 29,34 ****
---- 29,36 ----
+*** 28,33 ****
+--- 28,35 ----
     depends_on "pixman"
     depends_on "glib"
   
@@ -12,36 +12,40 @@
       args = %W[
         --disable-dependency-tracking
 ***************
-*** 87,89 ****
---- 89,279 ----
+*** 86,88 ****
+--- 88,223 ----
       system "./test"
     end
   end
 + 
 + __END__
 + diff -rcN cairo-1.14.0/src/cairo-quartz-surface.c cairo-1.14.0.new/src/cairo-quartz-surface.c
-+ *** cairo-1.14.0/src/cairo-quartz-surface.c	Tue Oct 14 03:46:33 2014
-+ --- cairo-1.14.0.new/src/cairo-quartz-surface.c	Fri Nov 25 08:23:03 2016
++ *** cairo-1.14.12/src/cairo-quartz-surface.c	Mon Dec  4 23:26:24 2017
++ --- cairo-1.14.12-new/src/cairo-quartz-surface.c	Wed Feb 21 21:33:47 2018
 + ***************
 + *** 134,139 ****
-+ --- 134,189 ----
++ --- 134,179 ----
 +   static void quartz_image_to_png (CGImageRef, char *dest);
 +   #endif
 +   
 + + 
-+ + static CGColorSpaceRef CGColorSpaceCreateDeviceRGB_test()
++ + static CGColorSpaceRef CGColorSpaceCreateDisplayRGB()
 + + {
 + +   //return CGColorSpaceCreateDeviceRGB();
-+ +   return CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
++ +   //return CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 + +   //return CGColorSpaceCreateWithName(kCGColorSpaceAdobeRGB1998);
 + +   //return CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
-+ +   //return CGColorSpaceCreateWithName(kCGColorSpaceACESCGLinear);
++ +   //return CGColorSpaceCreateWithName(kCGColorSpaceDCIP3);
 + +   //return NULL;
 + + 
 + +   CGColorSpaceRef result = NULL;
 + + 
-+ +   //guint8 *buffer = NULL;
-+ +   //gint buffer_size = 0;
++ +   result = CGDisplayCopyColorSpace(CGMainDisplayID());
++ +   if (!result) {
++ +     result = CGColorSpaceCreateDeviceRGB();
++ +   }
++ +   return result;
++ + 
 + + 
 + +   int monitor = 0;
 + +   CGDirectDisplayID ids[monitor + 1];
@@ -49,33 +53,19 @@
 + +   CMProfileRef prof = NULL;
 + +   if(CGGetOnlineDisplayList(monitor + 1, &ids[0], &total_ids) == kCGErrorSuccess && total_ids == monitor + 1) {
 + +     CMGetProfileByAVID(ids[monitor], &prof);
-+ +     printf("CGColorSpaceCreateDeviceRGB_test(): AVID=%d\n", (int)ids[monitor]);
++ +     //printf("CGColorSpaceCreateDeviceRGB_test(): AVID=%d\n", (int)ids[monitor]);
 + +   }
-+ +   if(prof != NULL)
-+ +   {
++ +   if(prof != NULL) {
 + +     CFDataRef data;
 + +     data = CMProfileCopyICCData(NULL, prof);
 + +     CMCloseProfile(prof);
-+ +     /*
-+ +     UInt8 *tmp_buffer = (UInt8 *)g_malloc(CFDataGetLength(data));
-+ +     CFDataGetBytes(data, CFRangeMake(0, CFDataGetLength(data)), tmp_buffer);
-+ + 
-+ +     buffer = (guint8 *)tmp_buffer;
-+ +     buffer_size = CFDataGetLength(data);
-+ + 
-+ +     cmsHPROFILE icc_profile = cmsOpenProfileFromMem( buffer, buffer_size );
-+ +     char tstr[1024];
-+ +     cmsGetProfileInfoASCII(icc_profile, cmsInfoDescription, "en", "US", tstr, 1024);
-+ +     std::cout<<"CGColorSpaceCreateDeviceRGB_test(): Display profile: "<<tstr<<std::endl;
-+ +     cmsCloseProfile(icc_profile);
-+ +     */
 + + 
 + +     result = CGColorSpaceCreateWithICCProfile(data);
 + + 
-+ +     printf("CGColorSpaceCreateDeviceRGB_test(): display profile=%p, result=%p\n", (void*)prof, (void*)result);
++ +     //printf("CGColorSpaceCreateDeviceRGB_test(): display profile=%p, result=%p\n", (void*)prof, (void*)result);
 + +     CFRelease(data);
 + +   }
-+ + return result;
++ +   return result;
 + + }
 + + 
 +   static cairo_quartz_surface_t *
@@ -90,11 +80,11 @@
 +   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
 +   	    bitsPerComponent = 8;
 +   	    bitsPerPixel = 32;
-+ --- 225,231 ----
++ --- 215,221 ----
 +       switch (format) {
 +   	case CAIRO_FORMAT_ARGB32:
 +   	    if (colorSpace == NULL)
-+ ! 		colorSpace = CGColorSpaceCreateDeviceRGB_test ();
++ ! 	      colorSpace = CGColorSpaceCreateDisplayRGB();
 +   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
 +   	    bitsPerComponent = 8;
 +   	    bitsPerPixel = 32;
@@ -107,76 +97,31 @@
 +   	    bitinfo |= kCGImageAlphaNoneSkipFirst;
 +   	    bitsPerComponent = 8;
 +   	    bitsPerPixel = 32;
-+ --- 233,239 ----
++ --- 223,229 ----
 +   
 +   	case CAIRO_FORMAT_RGB24:
 +   	    if (colorSpace == NULL)
-+ ! 		colorSpace = CGColorSpaceCreateDeviceRGB_test ();
++ !         colorSpace = CGColorSpaceCreateDisplayRGB();
 +   	    bitinfo |= kCGImageAlphaNoneSkipFirst;
 +   	    bitsPerComponent = 8;
 +   	    bitsPerPixel = 32;
 + ***************
-+ *** 229,235 ****
-+   				   dataProvider,
-+   				   decode,
-+   				   interpolate);
-+ !     } else
-+   	image = CGImageCreate (width, height,
-+   			       bitsPerComponent,
-+   			       bitsPerPixel,
-+ --- 279,285 ----
-+   				   dataProvider,
-+   				   decode,
-+   				   interpolate);
-+ !     } else {
-+   	image = CGImageCreate (width, height,
-+   			       bitsPerComponent,
-+   			       bitsPerPixel,
-+ ***************
-+ *** 240,245 ****
-+ --- 290,297 ----
-+   			       NULL,
-+   			       interpolate,
-+   			       kCGRenderingIntentDefault);
-+ + 	/*printf("CGImageCreate() called, colorSpace=%p\n", (void*)colorSpace);*/
-+ +     }
++ *** 1407,1413 ****
++       CGContextScaleCTM (state->cgDrawContext, 1, -1);
 +   
-+   FINISH:
++       if (state->action == DO_IMAGE) {
++ ! 	CGContextDrawImage (state->cgDrawContext, state->rect, state->image);
++   	if (op == CAIRO_OPERATOR_SOURCE &&
++   	    state->cgDrawContext == state->cgMaskContext)
++   	{
++ --- 1447,1453 ----
++       CGContextScaleCTM (state->cgDrawContext, 1, -1);
 +   
-+ ***************
-+ *** 1092,1098 ****
-+       if (unlikely (gradFunc == NULL))
-+   	return CAIRO_INT_STATUS_UNSUPPORTED;
-+   
-+ !     rgb = CGColorSpaceCreateDeviceRGB ();
-+   
-+       if (gradient->base.type == CAIRO_PATTERN_TYPE_LINEAR) {
-+   	state->shading = CGShadingCreateAxial (rgb,
-+ --- 1144,1150 ----
-+       if (unlikely (gradFunc == NULL))
-+   	return CAIRO_INT_STATUS_UNSUPPORTED;
-+   
-+ !     rgb = CGColorSpaceCreateDeviceRGB_test ();
-+   
-+       if (gradient->base.type == CAIRO_PATTERN_TYPE_LINEAR) {
-+   	state->shading = CGShadingCreateAxial (rgb,
-+ ***************
-+ *** 2361,2367 ****
-+       if (format == CAIRO_FORMAT_ARGB32 ||
-+   	format == CAIRO_FORMAT_RGB24)
-+       {
-+ ! 	cgColorspace = CGColorSpaceCreateDeviceRGB ();
-+   	bitinfo = kCGBitmapByteOrder32Host;
-+   	if (format == CAIRO_FORMAT_ARGB32)
-+   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
-+ --- 2413,2419 ----
-+       if (format == CAIRO_FORMAT_ARGB32 ||
-+   	format == CAIRO_FORMAT_RGB24)
-+       {
-+ ! 	cgColorspace = CGColorSpaceCreateDeviceRGB_test ();
-+   	bitinfo = kCGBitmapByteOrder32Host;
-+   	if (format == CAIRO_FORMAT_ARGB32)
-+   	    bitinfo |= kCGImageAlphaPremultipliedFirst;
++       if (state->action == DO_IMAGE) {
++ !   CGContextDrawImage (state->cgDrawContext, state->rect, state->image);
++   	if (op == CAIRO_OPERATOR_SOURCE &&
++   	    state->cgDrawContext == state->cgMaskContext)
++   	{
 + diff -rcN cairo-1.14.0/src/cairo.c cairo-1.14.0.new/src/cairo.c
 + *** cairo-1.14.0/src/cairo.c	Tue Feb  4 00:07:57 2014
 + --- cairo-1.14.0.new/src/cairo.c	Wed Oct 19 12:50:08 2016
