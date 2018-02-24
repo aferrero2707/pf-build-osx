@@ -126,7 +126,7 @@ brew info  vips
 fi
 
 if [ x"$step" = "x5" ]; then
-brew uninstall cairo
+brew uninstall --ignore-dependencies cairo
 brew install --ignore-dependencies cairo
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
