@@ -11,7 +11,7 @@ cachefile=homebrew-cache-pf-step$((step-1)).tar.gz
 cacheurl=https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/$cachefile
 
 cd $HOME
-if [ x"$step" != "x1" ]; then
+if [ x"$step" != "x0" ]; then
   (curl -L $cacheurl > $cachefile && tar xzf $cachefile && rm -f $cachefile) || exit 1
 fi
 
