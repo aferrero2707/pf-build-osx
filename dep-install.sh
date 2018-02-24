@@ -115,7 +115,10 @@ brew uninstall --ignore-dependencies cairo
 
 cd $HOME
 rm -rf homebrew-temp && mkdir homebrew-temp && curl -L https://github.com/Homebrew/brew/tarball/master | tar xzv --strip 1 -C homebrew-temp
-ls homebrew-temp
+cd homebrew-temp
+bin/brew update
+ls Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
+cd ..
 cp homebrew-temp/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb homebrew/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 cd $HOME/homebrew
 
