@@ -22,97 +22,97 @@ cd $HOME/homebrew
 brew update
 brew tap homebrew/science
 
-brew install pkg-config automake
-brew install --ignore-dependencies gtk-doc
-brew install shared-mime-info
+brew install -v pkg-config automake
+brew install -v --ignore-dependencies gtk-doc
+brew install -v shared-mime-info
 
-brew install $(brew deps cairo)
+brew install -v $(brew deps cairo)
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 brew reinstall --build-from-source --ignore-dependencies cairo
 
-brew install   gobject-introspection
-#brew install   gobject-introspection
-brew install   fftw
+brew install -v   gobject-introspection
+#brew install -v   gobject-introspection
+brew install -v   fftw
 brew info   fftw
-brew install  mozjpeg
+brew install -v  mozjpeg
 brew info  mozjpeg
-brew install  libexif
+brew install -v  libexif
 brew info  libexif
-brew install   libpng
+brew install -v   libpng
 brew info   libpng
-#brew install  webp
+#brew install -v  webp
 #brew info  webp
-brew install  libtiff
+brew install -v  libtiff
 brew info  libtiff
-brew install   swig
+brew install -v   swig
 brew info   swig
-#brew install  imagemagick
+#brew install -v  imagemagick
 #brew info  imagemagick
-brew install   cfitsio
+brew install -v   cfitsio
 brew info   cfitsio
-#brew install  libmatio
+#brew install -v  libmatio
 #brew info  libmatio
-brew install   orc
+brew install -v   orc
 brew info   orc
-brew install  little-cms2
+brew install -v  little-cms2
 brew info  little-cms2
 fi
 
 if [ x"$step" = "x2" ]; then
-brew install  poppler
+brew install -v  poppler
 brew info  poppler
-brew install   pango
+brew install -v   pango
 brew info   pango
-brew install  libgsf
+brew install -v  libgsf
 brew info  libgsf
-brew install  openslide
+brew install -v  openslide
 brew info  openslide
-brew install   librsvg
+brew install -v   librsvg
 brew info   librsvg
-brew install  giflib
+brew install -v  giflib
 brew info  giflib
-brew install  openexr
+brew install -v  openexr
 brew info  openexr
-#brew install   python
+#brew install -v   python
 #brew info   python
-#brew install  pygobject3
+#brew install -v  pygobject3
 #brew info  pygobject3
-#brew install   gexiv2
+#brew install -v   gexiv2
 #brew info   gexiv2
-brew install  gtk+
+brew install -v  gtk+
 brew info  gtk+
-#brew install  pygtk
+#brew install -v  pygtk
 #brew info  pygtk
 fi
 
 if [ x"$step" = "x3" ]; then
-brew install  gtk-engines
+brew install -v  gtk-engines
 brew info  gtk-engines 
-brew install  gtkmm 
+brew install -v  gtkmm 
 brew info  gtkmm
-brew install  openssl 
+brew install -v  openssl 
 brew info  openssl
-brew install --verbose gtk+3
+brew install -v --verbose gtk+3
 brew info gtk+3
-brew install  gtk-mac-integration
+brew install -v  gtk-mac-integration
 brew info  gtk-mac-integration
-brew install  pugixml
+brew install -v  pugixml
 brew info  pugixml
 fi
 
 if [ x"$step" = "x4" ]; then
-brew reinstall python && brew info python
-brew install python3 && brew info python3
-brew install  vips
+brew reinstall -v python && brew info python
+brew install -v python3 && brew info python3
+brew install -v  vips
 brew info  vips
 fi
 
 if [ x"$step" = "x5" ]; then
-brew reinstall  vips
+brew reinstall -v  vips
 brew info  vips
-brew reinstall  lensfun
+brew reinstall -v  lensfun
 brew info  lensfun
 fi
