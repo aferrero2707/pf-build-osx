@@ -114,7 +114,7 @@ if [ x"$step" = "x5" ]; then
 brew uninstall --ignore-dependencies cairo
 
 cd $HOME
-rm -rf homebrew-temp && mkdir homebrew-temp && curl -L https://github.com/Homebrew/brew/tarball/master | tar xzv --strip 1 -C homebrew-temp
+rm -rf homebrew-temp && mkdir homebrew-temp && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew-temp
 cd homebrew-temp
 bin/brew update
 ls Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
