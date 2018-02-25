@@ -122,10 +122,13 @@ cd ..
 cp homebrew-temp/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb homebrew/Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 cd $HOME/homebrew
 
-brew install --ignore-dependencies cairo
+#brew install --ignore-dependencies cairo
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 brew reinstall --build-from-source --ignore-dependencies cairo
+fi
+
+if [ x"$step" = "x6" ]; then
 brew reinstall  vips
 brew info  vips
 brew reinstall  lensfun
