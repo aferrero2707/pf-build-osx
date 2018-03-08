@@ -8,7 +8,7 @@ env:
             JPEG=/usr/local/opt/mozjpeg
             MACOSX_DEPLOYMENT_TARGET=10.8
             HOMEBREW_NO_AUTO_UPDATE=1
-            STEP=3
+            STEP=4
 before_script:
   - ./dep-install.sh $STEP
   - cd $HOME
