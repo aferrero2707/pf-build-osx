@@ -47,7 +47,7 @@ brew reinstall --build-from-source --ignore-dependencies cairo
 
 brew install   gobject-introspection
 #brew install   gobject-introspection
-brew install   fftw
+brew install   fftw --without-fortran
 brew info   fftw
 brew install  mozjpeg
 brew info  mozjpeg
