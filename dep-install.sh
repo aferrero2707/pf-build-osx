@@ -16,7 +16,7 @@ if [ x"$step" != "x0" ]; then
 fi
 
 
-if [ x"$step" = "x1" ]; then
+if [ x"$step" = "x0" ]; then
 rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 cd $HOME/homebrew
 brew update
@@ -26,7 +26,16 @@ brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install shared-mime-info
 
+echo ""
+echo "=============================================="
+echo "Cairo dependencies: $(brew deps cairo)"
+echo "=============================================="
+echo ""
 brew install $(brew deps cairo)
+fi
+
+
+if [ x"$step" = "x1" ]; then
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
