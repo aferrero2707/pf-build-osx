@@ -38,6 +38,8 @@ fi
 if [ x"$step" = "x1" ]; then
 #cairo_version=$(brew info cairo | head -n 1 | cut -d"," -f 1 | cut -d" " -f 3)
 #(cd Cellar/cairo/${cairo_version} && patch -p 1 < ../../../cairo-phf.patch) || exit 1
+cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
+brew install --ignore-dependencies cairo
 patch -p1 < $TRAVIS_BUILD_DIR/cairo-hb-displayprofile.patch
 cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 brew reinstall --build-from-source --ignore-dependencies cairo
