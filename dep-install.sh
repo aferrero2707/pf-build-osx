@@ -117,8 +117,6 @@ fi
 if [ x"$step" = "x4" ]; then
 brew reinstall python && brew info python
 brew install python3 && brew info python3
-brew install  vips
-brew info  vips
 fi
 
 if [ x"$step" = "x5" ]; then
@@ -140,7 +138,7 @@ brew reinstall --build-from-source --ignore-dependencies cairo
 fi
 
 if [ x"$step" = "x6" ]; then
-brew reinstall  vips
+brew reinstall  vips --with-openexr
 brew info  vips
 brew reinstall  lensfun
 brew info  lensfun
