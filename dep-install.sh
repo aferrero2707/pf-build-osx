@@ -20,7 +20,8 @@ if [ x"$step" = "x0" ]; then
 rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 cd $HOME/homebrew
 brew update
-brew tap homebrew/science
+#brew tap homebrew/science
+sed -i 's/-march=native/-march=nocona -mno-sse3 -mtune=generic/g' Library/Homebrew/extend/ENV/super.rb
 
 brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
