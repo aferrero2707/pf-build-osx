@@ -90,6 +90,8 @@ brew install  libgsf
 brew info  libgsf
 brew install  openslide
 brew info  openslide
+brew install  --verbose rust
+brew info   rust
 brew install   librsvg
 brew info   librsvg
 brew install  giflib
