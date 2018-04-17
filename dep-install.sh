@@ -21,7 +21,15 @@ rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/ta
 cd $HOME/homebrew
 brew update
 #brew tap homebrew/science
+
 sed -i ".bak" -e "s/-march=native/-march=nocona -mno-sse3 -mtune=generic/g" Library/Homebrew/extend/ENV/super.rb
+
+echo ""
+echo "=============================================="
+echo "Patched optimization settings:"
+cat  Library/Homebrew/extend/ENV/super.rb | grep "march"
+echo "=============================================="
+echo ""
 
 brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
