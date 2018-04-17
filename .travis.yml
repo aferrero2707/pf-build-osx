@@ -10,7 +10,7 @@ env:
             HOMEBREW_NO_AUTO_UPDATE=1
             STEP=2
 before_script:
-  - ./dep-install.sh  $STEP
+  - travis_wait 40 ./dep-install.sh  $STEP
   - cd $HOME
   - tar czf $HOME/homebrew-cache-pf-step${STEP}.tar.gz homebrew
   - wget -c https://github.com/aferrero2707/uploadtool/raw/master/upload_rotate.sh
