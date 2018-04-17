@@ -140,6 +140,6 @@ fi
 if [ x"$step" = "x6" ]; then
 brew reinstall  vips --with-openexr
 brew info  vips
-brew reinstall  lensfun
+brew reinstall --verbose lensfun
 brew info  lensfun
 fi
