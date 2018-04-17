@@ -21,7 +21,7 @@ rm -rf homebrew && mkdir homebrew && curl -L https://github.com/Homebrew/brew/ta
 cd $HOME/homebrew
 brew update
 #brew tap homebrew/science
-sed -i 's/-march=native/-march=nocona -mno-sse3 -mtune=generic/g' Library/Homebrew/extend/ENV/super.rb
+sed -i ".bak" -e "s/-march=native/-march=nocona -mno-sse3 -mtune=generic/g" Library/Homebrew/extend/ENV/super.rb
 
 brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
