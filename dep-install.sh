@@ -82,6 +82,10 @@ brew info  little-cms2
 fi
 
 if [ x"$step" = "x2" ]; then
+brew install  --verbose llvm
+brew info   llvm
+brew install  --verbose --with-llvm rust
+brew info   rust
 brew install  poppler
 brew info  poppler
 brew install   pango
@@ -90,8 +94,6 @@ brew install  libgsf
 brew info  libgsf
 brew install  openslide
 brew info  openslide
-brew install  --verbose rust
-brew info   rust
 brew install   librsvg
 brew info   librsvg
 brew install  giflib
