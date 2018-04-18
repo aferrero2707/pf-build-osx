@@ -84,7 +84,7 @@ fi
 if [ x"$step" = "x2" ]; then
 brew install  --verbose llvm
 brew info   llvm
-brew install  --verbose --with-llvm rust
+brew install  --verbose --with-llvm --force-bottle rust
 brew info   rust
 brew install  poppler
 brew info  poppler
