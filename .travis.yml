@@ -9,7 +9,7 @@ env:
             MACOSX_DEPLOYMENT_TARGET=10.8
             HOMEBREW_NO_AUTO_UPDATE=1
             HOMEBREW_MAKE_JOBS=3
-            STEP=5
+            STEP=6
 before_script:
   #- travis_wait 40 ./dep-install.sh  $STEP
   - ./dep-install.sh  $STEP
