@@ -151,6 +151,8 @@ brew reinstall --build-from-source --ignore-dependencies cairo
 fi
 
 if [ x"$step" = "x6" ]; then
+brew reinstall  --force-bottle gcc
+brew info gcc
 brew reinstall  vips --with-openexr
 brew info  vips
 brew reinstall --verbose lensfun
