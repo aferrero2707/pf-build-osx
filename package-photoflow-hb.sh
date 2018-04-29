@@ -144,8 +144,11 @@ done
 
 export PATH=$src/bin:$PATH
 lensfun-update-data
+echo "Contents of lensfun database:"
+ls $HOME/.local/share/lensfun/updates/version_1
 mkdir -p $dst_prefix/share/photoflow/lensfun/version_1
 cp -a $HOME/.local/share/lensfun/updates/version_1/* $dst_prefix/share/photoflow/lensfun/version_1
+ls $dst_prefix/share/photoflow/lensfun/version_1
 
 
 
