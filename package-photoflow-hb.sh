@@ -148,8 +148,14 @@ echo "Contents of lensfun database:"
 ls $HOME/.local/share/lensfun/updates/version_1
 mkdir -p $dst_prefix/share/photoflow/lensfun/version_1
 cp -a $HOME/.local/share/lensfun/updates/version_1/* $dst_prefix/share/photoflow/lensfun/version_1
+echo "Contents of \"$dst_prefix/share/photoflow/lensfun/version_1\":"
 ls $dst_prefix/share/photoflow/lensfun/version_1
 
+echo "Contents of \"$dst_prefix/share/photoflow/lensfun\":"
+ls $dst_prefix/share/photoflow/lensfun
+
+echo "Contents of \"$dst_prefix/share/photoflow\":"
+ls $dst_prefix/share/photoflow
 
 
 #$src/bin/gdk-pixbuf-query-loaders > $dst_prefix/etc/gtk-2.0/gdk-pixbuf.loaders
@@ -170,9 +176,7 @@ ls -lh $HOME/photoflow-${version}.zip
 echo "transfer $HOME/photoflow-${version}.zip"
 transfer $HOME/photoflow-${version}.zip
 
-exit
-
-ln -s /Applications $bdir
+#exit
 
 #cp $src/lib/pango/1.8.0/modules.cache $dst_prefix/lib/pango/1.8.0
 #new
@@ -191,12 +195,17 @@ ln -s /Applications $bdir
 
 #mv $dst ~/Desktop/PhotoFlow/photoflow-$version.app
 
-echo built ~/Desktop/PhotoFlow/photoflow.app
+#echo built ~/Desktop/PhotoFlow/photoflow.app
 
-echo building .dmg
-rm -f ~/Desktop/photoflow-$version.app.dmg
-size_MB=$(du -ms ~/Desktop/PhotoFlow/photoflow.app | cut -f 1)
+cd $bdir
+rm -rf tools
+ln -s /Applications .
+
+echo "Building .dmg"
+rm -f $HOME/photoflow-$version.dmg
+size_MB=$(du -ms photoflow.app | cut -f 1)
 size_MB=$((size_MB+5))
-echo "hdiutil create -megabytes ${size_MB} -srcfolder ~/Desktop/PhotoFlow -o ~/Desktop/photoflow-$version.app.dmg"
-hdiutil create -megabytes ${size_MB} -verbose -srcfolder ~/Desktop/PhotoFlow -o ~/Desktop/photoflow-$version.app.dmg
-echo built ~/Desktop/photoflow-$version.app.dmg
+echo "hdiutil create -megabytes ${size_MB} -srcfolder $bdir -o $HOME/photoflow-$version.dmg"
+hdiutil create -megabytes ${size_MB} -verbose -srcfolder $bdir -o $HOME/photoflow-${version}.dmg
+echo built $HOME/photoflow-${version}.dmg
+transfer $HOME/photoflow-${version}.dmg
