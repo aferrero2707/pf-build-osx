@@ -169,12 +169,12 @@ cp MyIcon.icns $dst_prefix
 echo "Entering \"$bdir\""
 cd $bdir
 ls
-echo "zip -r $HOME/photoflow-${version}.zip photoflow.app"
-zip -r $HOME/photoflow-${version}.zip photoflow.app
+#echo "zip -r $HOME/photoflow-${version}.zip photoflow.app"
+#zip -r $HOME/photoflow-${version}.zip photoflow.app
 
-ls -lh $HOME/photoflow-${version}.zip
-echo "transfer $HOME/photoflow-${version}.zip"
-transfer $HOME/photoflow-${version}.zip
+#ls -lh $HOME/photoflow-${version}.zip
+#echo "transfer $HOME/photoflow-${version}.zip"
+#transfer $HOME/photoflow-${version}.zip
 
 #exit
 
@@ -198,7 +198,7 @@ transfer $HOME/photoflow-${version}.zip
 #echo built ~/Desktop/PhotoFlow/photoflow.app
 
 cd $bdir
-rm -rf tools
+rm -rf tools *.log
 ln -s /Applications .
 #touch .Trash
 
@@ -209,4 +209,4 @@ size_MB=$((size_MB+100))
 echo "hdiutil create -megabytes ${size_MB} -srcfolder $bdir -o $HOME/photoflow-$version.dmg"
 hdiutil create -megabytes ${size_MB} -verbose -srcfolder $bdir -o $HOME/photoflow-${version}.dmg
 echo built $HOME/photoflow-${version}.dmg
-transfer $HOME/photoflow-${version}.dmg
+ls -lh $HOME/photoflow-${version}.dmg
