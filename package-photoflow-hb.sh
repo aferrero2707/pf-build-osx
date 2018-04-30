@@ -200,11 +200,12 @@ transfer $HOME/photoflow-${version}.zip
 cd $bdir
 rm -rf tools
 ln -s /Applications .
+#touch .Trash
 
 echo "Building .dmg"
 rm -f $HOME/photoflow-$version.dmg
 size_MB=$(du -ms photoflow.app | cut -f 1)
-size_MB=$((size_MB+5))
+size_MB=$((size_MB+100))
 echo "hdiutil create -megabytes ${size_MB} -srcfolder $bdir -o $HOME/photoflow-$version.dmg"
 hdiutil create -megabytes ${size_MB} -verbose -srcfolder $bdir -o $HOME/photoflow-${version}.dmg
 echo built $HOME/photoflow-${version}.dmg
