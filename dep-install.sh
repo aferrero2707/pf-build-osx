@@ -155,6 +155,7 @@ brew reinstall  --force-bottle gcc
 brew info gcc
 brew reinstall  vips --with-openexr
 brew info  vips
+brew install intltool gettext json-glib glib-networking gexiv2
 brew reinstall --verbose lensfun
 brew info  lensfun
 fi
