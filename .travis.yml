@@ -12,12 +12,13 @@ env:
             MACOSX_DEPLOYMENT_TARGET=10.8
             HOMEBREW_NO_AUTO_UPDATE=1
             HOMEBREW_MAKE_JOBS=3
-            STEP=0
+            STEP=1
 before_script:
   #- travis_wait 40 ./dep-install.sh  $STEP
   # get rid of default homebrew installation
   - sudo mv /usr/local/bin /usr/local/bin_
   - sudo mv /usr/local/lib /usr/local/lib_
+  - sudo mv /usr/local/opt /usr/local/opt_
   - ./dep-install.sh  $STEP
   - cd $HOME
   - tar czf $HOME/homebrew-cache-pf-step${STEP}.tar.gz homebrew
