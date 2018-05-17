@@ -131,12 +131,12 @@ brew install  pugixml
 brew info  pugixml
 fi
 
-if [ x"$step" = "x4" ]; then
+if [ x"$step" = "x90" ]; then
 brew reinstall python && brew info python
 brew install python3 && brew info python3
 fi
 
-if [ x"$step" = "x5" ]; then
+if [ x"$step" = "x91" ]; then
 brew uninstall --ignore-dependencies cairo
 
 cd $HOME
@@ -154,7 +154,7 @@ cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 brew reinstall --build-from-source --ignore-dependencies cairo
 fi
 
-if [ x"$step" = "x6" ]; then
+if [ x"$step" = "x4" ]; then
 brew reinstall  vips --with-openexr
 brew info  vips
 brew install intltool gettext json-glib glib-networking gexiv2
