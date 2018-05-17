@@ -37,9 +37,9 @@ brew install shared-mime-info
 brew install wget
 brew reinstall  --force-bottle gcc
 brew info gcc
-brew install  --verbose --force-bottle llvm
-brew info   llvm
-brew install  --verbose --with-llvm --force-bottle rust
+#brew install  --verbose --force-bottle llvm
+#brew info   llvm
+brew install  --force-bottle rust
 brew info   rust
 brew install   python
 brew info   python
