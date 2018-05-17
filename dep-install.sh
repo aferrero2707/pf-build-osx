@@ -35,6 +35,15 @@ brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install shared-mime-info
 brew install wget
+brew reinstall  --force-bottle gcc
+brew info gcc
+brew install  --verbose --force-bottle llvm
+brew info   llvm
+brew install  --verbose --with-llvm --force-bottle rust
+brew info   rust
+brew install   python
+brew info   python
+
 
 echo ""
 echo "=============================================="
@@ -83,10 +92,6 @@ brew info  little-cms2
 fi
 
 if [ x"$step" = "x2" ]; then
-brew install  --verbose llvm
-brew info   llvm
-brew install  --verbose --with-llvm --force-bottle rust
-brew info   rust
 brew install  poppler
 brew info  poppler
 brew install   pango
@@ -101,12 +106,10 @@ brew install  giflib
 brew info  giflib
 brew install  openexr
 brew info  openexr
-#brew install   python
-#brew info   python
 #brew install  pygobject3
 #brew info  pygobject3
-#brew install   gexiv2
-#brew info   gexiv2
+brew install   gexiv2
+brew info   gexiv2
 brew install  gtk+
 brew info  gtk+
 #brew install  pygtk
@@ -120,8 +123,8 @@ brew install  gtkmm
 brew info  gtkmm
 brew install  openssl 
 brew info  openssl
-brew install --verbose gtk+3
-brew info gtk+3
+#brew install --verbose gtk+3
+#brew info gtk+3
 brew install  gtk-mac-integration
 brew info  gtk-mac-integration
 brew install  pugixml
@@ -152,8 +155,6 @@ brew reinstall --build-from-source --ignore-dependencies cairo
 fi
 
 if [ x"$step" = "x6" ]; then
-brew reinstall  --force-bottle gcc
-brew info gcc
 brew reinstall  vips --with-openexr
 brew info  vips
 brew install intltool gettext json-glib glib-networking gexiv2
