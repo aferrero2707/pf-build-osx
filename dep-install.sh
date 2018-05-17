@@ -125,7 +125,7 @@ brew install  openssl
 brew info  openssl
 #brew install --verbose gtk+3
 #brew info gtk+3
-brew install  gtk-mac-integration
+brew install --without-gtk+3 gtk-mac-integration
 brew info  gtk-mac-integration
 brew install  pugixml
 brew info  pugixml
