@@ -34,6 +34,7 @@ echo ""
 brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install shared-mime-info
+brew install wget
 
 echo ""
 echo "=============================================="
