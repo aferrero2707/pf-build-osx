@@ -4,6 +4,9 @@ os: osx
 osx_image: xcode7.3
 env: 
           - TARGET_SYSTEM=OSX
+            PATH="$HOME/homebrew/bin:$PATH"
+            LD_LIBRARY_PATH="$HOME/homebrew/lib:$LD_LIBRARY_PATH"
+            LIBRARY_PATH="$HOME/homebrew/lib:$LIBRARY_PATH"
             PYTHON=/usr/local/bin/python
             JPEG=/usr/local/opt/mozjpeg
             MACOSX_DEPLOYMENT_TARGET=10.8
