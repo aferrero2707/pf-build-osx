@@ -155,6 +155,7 @@ brew reinstall --build-from-source --ignore-dependencies cairo
 fi
 
 if [ x"$step" = "x4" ]; then
+brew update
 brew reinstall  vips --with-openexr
 brew info  vips
 brew install intltool gettext json-glib glib-networking gexiv2
