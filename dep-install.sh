@@ -10,7 +10,9 @@ export PKG_CONFIG_PATH=$HOME/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH
 cachefile=homebrew-cache-pf-step$((step-1)).tar.gz
 cacheurl=https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/$cachefile
 
-watch -n 5 echo "Still running..."&
+#watch -n 5 echo "Still running..."&
+echo 'while :; do clear; echo "Still running..."; sleep 60; done' > /watch.sh
+bash -c /watch.sh &
 
 cd $HOME
 if [ x"$step" != "x0" ]; then
