@@ -164,9 +164,9 @@ if [ x"$step" = "x4" ]; then
 brew install intltool gettext json-glib glib-networking gexiv2 || exit 1
 brew reinstall --verbose lensfun || exit 1
 brew info  lensfun
-brew update
-brew reinstall  vips || exit 1 #--with-openexr
-brew info  vips
-#brew reinstall --verbose opencolorio
-#brew info opencolorio
+#brew update
+#brew reinstall  vips || exit 1 #--with-openexr
+#brew info  vips
+brew reinstall --verbose opencolorio
+brew info opencolorio
 fi
