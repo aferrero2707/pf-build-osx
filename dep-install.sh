@@ -161,12 +161,12 @@ brew reinstall --build-from-source --ignore-dependencies cairo
 fi
 
 if [ x"$step" = "x4" ]; then
-brew update
+brew upgrade vips
 brew reinstall  vips --with-openexr
 brew info  vips
 brew install intltool gettext json-glib glib-networking gexiv2
 brew reinstall --verbose lensfun
 brew info  lensfun
-brew reinstall --verbose opencolorio
-brew info opencolorio
+#brew reinstall --verbose opencolorio
+#brew info opencolorio
 fi
