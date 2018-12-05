@@ -167,6 +167,6 @@ brew info  lensfun
 #brew update
 #brew reinstall  vips || exit 1 #--with-openexr
 #brew info  vips
-brew reinstall --verbose opencolorio
+brew reinstall --verbose opencolorio || exit 1
 brew info opencolorio
 fi
