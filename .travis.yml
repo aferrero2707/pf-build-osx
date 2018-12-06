@@ -4,14 +4,21 @@ os: osx
 osx_image: xcode7.3
 env: 
           - TARGET_SYSTEM=OSX
-            PYTHON=/usr/local/bin/python
-            JPEG=/usr/local/opt/mozjpeg
+            PATH="$HOME/homebrew/bin:$PATH"
+            LD_LIBRARY_PATH="$HOME/homebrew/lib:$LD_LIBRARY_PATH"
+            LIBRARY_PATH="$HOME/homebrew/lib:$LIBRARY_PATH"
+            PYTHON=$HOME/homebrew/bin/python
             MACOSX_DEPLOYMENT_TARGET=10.8
             HOMEBREW_NO_AUTO_UPDATE=1
             HOMEBREW_MAKE_JOBS=3
-            STEP=6
+            STEP=4
+            #JPEG=/usr/local/opt/mozjpeg
 before_script:
   #- travis_wait 40 ./dep-install.sh  $STEP
+  # get rid of default homebrew installation
+  - sudo mv /usr/local/bin /usr/local/bin_
+  - sudo mv /usr/local/lib /usr/local/lib_
+  - sudo mv /usr/local/opt /usr/local/opt_
   - ./dep-install.sh  $STEP
   - cd $HOME
   - tar czf $HOME/homebrew-cache-pf-step${STEP}.tar.gz homebrew

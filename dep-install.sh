@@ -10,6 +10,12 @@ export PKG_CONFIG_PATH=$HOME/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH
 cachefile=homebrew-cache-pf-step$((step-1)).tar.gz
 cacheurl=https://github.com/aferrero2707/pf-build-osx/releases/download/continuous/$cachefile
 
+#watch -n 5 echo "Still running..."&
+echo 'while :; do echo "Still running..."; sleep 60; done' > "$HOME/watch.sh"
+chmod +x "$HOME/watch.sh"
+cat "$HOME/watch.sh"
+bash "$HOME/watch.sh" &
+
 cd $HOME
 if [ x"$step" != "x0" ]; then
   (curl -L $cacheurl > $cachefile && tar xzf $cachefile && rm -f $cachefile) || exit 1
@@ -34,6 +40,16 @@ echo ""
 brew install pkg-config automake
 brew install --ignore-dependencies gtk-doc
 brew install shared-mime-info
+brew install wget
+brew reinstall  --force-bottle gcc
+brew info gcc
+#brew install  --verbose --force-bottle llvm
+#brew info   llvm
+brew install  --force-bottle rust
+brew info   rust
+brew install   python
+brew info   python
+
 
 echo ""
 echo "=============================================="
@@ -82,10 +98,6 @@ brew info  little-cms2
 fi
 
 if [ x"$step" = "x2" ]; then
-brew install  --verbose llvm
-brew info   llvm
-brew install  --verbose --with-llvm --force-bottle rust
-brew info   rust
 brew install  poppler
 brew info  poppler
 brew install   pango
@@ -100,12 +112,10 @@ brew install  giflib
 brew info  giflib
 brew install  openexr
 brew info  openexr
-#brew install   python
-#brew info   python
 #brew install  pygobject3
 #brew info  pygobject3
-#brew install   gexiv2
-#brew info   gexiv2
+brew install   gexiv2
+brew info   gexiv2
 brew install  gtk+
 brew info  gtk+
 #brew install  pygtk
@@ -119,20 +129,20 @@ brew install  gtkmm
 brew info  gtkmm
 brew install  openssl 
 brew info  openssl
-brew install --verbose gtk+3
-brew info gtk+3
-brew install  gtk-mac-integration
+#brew install --verbose gtk+3
+#brew info gtk+3
+brew install --without-gtk+3 gtk-mac-integration
 brew info  gtk-mac-integration
 brew install  pugixml
 brew info  pugixml
 fi
 
-if [ x"$step" = "x4" ]; then
+if [ x"$step" = "x90" ]; then
 brew reinstall python && brew info python
 brew install python3 && brew info python3
 fi
 
-if [ x"$step" = "x5" ]; then
+if [ x"$step" = "x91" ]; then
 brew uninstall --ignore-dependencies cairo
 
 cd $HOME
@@ -150,11 +160,13 @@ cat Library/Taps/homebrew/homebrew-core/Formula/cairo.rb
 brew reinstall --build-from-source --ignore-dependencies cairo
 fi
 
-if [ x"$step" = "x6" ]; then
-brew reinstall  --force-bottle gcc
-brew info gcc
-brew reinstall  vips --with-openexr
-brew info  vips
-brew reinstall --verbose lensfun
+if [ x"$step" = "x4" ]; then
+brew install intltool gettext json-glib glib-networking gexiv2 || exit 1
+brew reinstall --verbose lensfun || exit 1
 brew info  lensfun
+#brew update
+#brew reinstall  vips || exit 1 #--with-openexr
+#brew info  vips
+brew reinstall --verbose opencolorio || exit 1
+brew info opencolorio
 fi
