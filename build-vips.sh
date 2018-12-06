@@ -11,12 +11,13 @@ export PKG_CONFIG_PATH="$HOME/homebrew/opt/mozjpeg/lib/pkgconfig:$HOME/homebrew/
 #export CMAKE_CC_COMPILER=$CC
 #export CMAKE_CXX_COMPILER=$CXX
 
+VIPS_VERSION=8.5.6
 cd $HOME
 mkdir -p VIPS || exit 1
 cd VIPS || exit 1
-curl -L -O https://github.com/libvips/libvips/releases/download/v8.7.2/vips-8.7.2.tar.gz || exit 1
-tar xzvf vips-8.7.2.tar.gz || exit 1
-cd vips-8.7.2 || exit 1
+curl -L -O https://github.com/libvips/libvips/releases/download/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz || exit 1
+tar xzvf vips-${VIPS_VERSION}.tar.gz || exit 1
+cd vips-${VIPS_VERSION} || exit 1
 FLAGS="-g -O2 -march=nocona -mno-sse3 -mtune=generic -ftree-vectorize" CFLAGS="${FLAGS}" CXXFLAGS="${FLAGS} -fpermissive" \
 ./configure --prefix="$HOME/homebrew" --disable-gtk-doc --disable-gtk-doc-html --disable-introspection \
   --enable-debug=no --without-python --without-magick --without-libwebp --enable-pyvips8=no \
