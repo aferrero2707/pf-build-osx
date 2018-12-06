@@ -19,7 +19,7 @@ tar xzvf vips-8.7.2.tar.gz || exit 1
 cd vips-8.7.2 || exit 1
 FLAGS="-g -O2 -march=nocona -mno-sse3 -mtune=generic -ftree-vectorize" CFLAGS="${FLAGS}" CXXFLAGS="${FLAGS} -fpermissive" \
 ./configure --prefix="$HOME/homebrew" --disable-gtk-doc --disable-gtk-doc-html --disable-introspection \
-  --enable-debug=no --without-python --without-magick --without-libwebp --enable-pyvips8=no \
+  --enable-debug=no --without-python --without-magick --without-libwebp --without-giflib --enable-pyvips8=no \
   --with-jpeg-includes=$HOME/homebrew/opt/mozjpeg/include --with-jpeg-libraries=$HOME/homebrew/opt/mozjpeg/lib \
   --enable-shared=yes --enable-static=no
 make -j 3 install
