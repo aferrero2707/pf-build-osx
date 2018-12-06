@@ -170,3 +170,8 @@ brew info  lensfun
 brew reinstall --verbose opencolorio || exit 1
 brew info opencolorio
 fi
+
+if [ x"$step" = "x5" ]; then
+cd $TRAVIS_BUILD_DIR
+bash ./build-vips.sh
+fi
