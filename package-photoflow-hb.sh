@@ -205,7 +205,7 @@ ln -s /Applications .
 echo "Building .dmg"
 rm -f $HOME/photoflow-$version.dmg
 size_MB=$(du -ms photoflow.app | cut -f 1)
-size_MB=$((size_MB+100))
+size_MB=$((size_MB+150))
 echo "hdiutil create -megabytes ${size_MB} -srcfolder $bdir -o $HOME/photoflow-$version.dmg"
 hdiutil create -megabytes ${size_MB} -verbose -srcfolder $bdir -o $HOME/photoflow-${version}.dmg
 echo built $HOME/photoflow-${version}.dmg
