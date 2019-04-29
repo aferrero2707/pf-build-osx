@@ -11,7 +11,8 @@ export PKG_CONFIG_PATH="$HOME/homebrew/opt/mozjpeg/lib/pkgconfig:$HOME/homebrew/
 #export CMAKE_CC_COMPILER=$CC
 #export CMAKE_CXX_COMPILER=$CXX
 
-VIPS_VERSION=8.5.6
+#VIPS_VERSION=8.5.6
+VIPS_VERSION=8.7.4
 cd $HOME
 mkdir -p VIPS || exit 1
 cd VIPS || exit 1
