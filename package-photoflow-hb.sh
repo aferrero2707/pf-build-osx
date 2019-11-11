@@ -20,7 +20,9 @@ transfer()
 
 #long_version="$(date +%Y%m%d)"
 #long_version="osx-$(date +%Y%m%d)-unstable"
-long_version="osx-$(date +%Y%m%d)_$(date +%H%M)-git-${TRAVIS_BRANCH}-${TRAVIS_COMMIT}"
+TRAVIS_COMMIT_SHORT=$(echo "${TRAVIS_COMMIT}" | head -c 5)
+long_version="git_${TRAVIS_BRANCH}_macos_$(date +%Y%m%d)_$(date +%H%M)_${TRAVIS_COMMIT_SHORT}"
+#long_version="osx-$(date +%Y%m%d)_$(date +%H%M)-git-${TRAVIS_BRANCH}-${TRAVIS_COMMIT}"
 #long_version="0.2.8"
 version=${long_version}
 year=`date +%Y`
@@ -86,7 +88,7 @@ sub @COPYRIGHT@ "$copyright"
 patch Info.plist
 
 rm -rf $dst 
-rm -rf $bdir/photoflow-$version.app
+rm -rf $bdir/PhotoFlow_${version}.app
 
 mkdir -p $bdir/tools && cd $bdir/tools
 #curl -O http://ftp.gnome.org/pub/gnome/sources/gtk-mac-bundler/0.7/gtk-mac-bundler-0.7.4.tar.xz && \
@@ -193,7 +195,7 @@ ls
 
 #cp ~/PhotoFlow/vips/transform-7.30/resample.plg $dst_prefix/lib
 
-#mv $dst ~/Desktop/PhotoFlow/photoflow-$version.app
+#mv $dst ~/Desktop/PhotoFlow/PhotoFlow_${version}.app
 
 #echo built ~/Desktop/PhotoFlow/photoflow.app
 
@@ -203,10 +205,10 @@ ln -s /Applications .
 #touch .Trash
 
 echo "Building .dmg"
-rm -f $HOME/photoflow-$version.dmg
+rm -f $HOME/PhotoFlow_${version}.dmg
 size_MB=$(du -ms photoflow.app | cut -f 1)
 size_MB=$((size_MB+150))
-echo "hdiutil create -megabytes ${size_MB} -srcfolder $bdir -o $HOME/photoflow-$version.dmg"
-hdiutil create -megabytes ${size_MB} -verbose -srcfolder $bdir -o $HOME/photoflow-${version}.dmg
-echo built $HOME/photoflow-${version}.dmg
-ls -lh $HOME/photoflow-${version}.dmg
+echo "hdiutil create -megabytes ${size_MB} -srcfolder $bdir -o $HOME/PhotoFlow_${version}.dmg"
+hdiutil create -megabytes ${size_MB} -verbose -srcfolder $bdir -o $HOME/PhotoFlow_${version}.dmg
+echo built $HOME/PhotoFlow_${version}.dmg
+ls -lh $HOME/PhotoFlow_${version}.dmg
