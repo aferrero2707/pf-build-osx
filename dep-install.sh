@@ -175,3 +175,8 @@ if [ x"$step" = "x5" ]; then
 cd $TRAVIS_BUILD_DIR
 bash ./build-vips.sh
 fi
+
+
+if [ x"$step" = "x6" ]; then
+brew install libiptcdata || exit 1
+fi
