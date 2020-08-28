@@ -179,4 +179,5 @@ fi
 
 if [ x"$step" = "x6" ]; then
 brew install libiptcdata || exit 1
+(cd $TRAVIS_BUILD_DIR && mkdir _zlib && cd _zlib && curl -L https://zlib.net/zlib-1.2.11.tar.gz | tar xz --strip 1 -C . && FLAGS="-g -O2 -march=nocona -mno-sse3 -mtune=generic -ftree-vectorize" CFLAGS="${FLAGS}" CXXFLAGS="${FLAGS} -fpermissive" ./configure --prefix="$HOME/homebrew" && make -j 2 install) || exit 1
 fi
